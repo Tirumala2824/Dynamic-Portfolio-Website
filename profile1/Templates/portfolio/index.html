@@ -1,0 +1,16 @@
+
+{% extends 'portfolio/main.html' %}
+{% block title %}My Projects{% endblock %}
+{% block content %}
+<h1>My projects </h1>
+{% for project in projects%}
+
+<img src='{{ project.image.url }}' style='height:150;width:340' />
+
+<h1>
+<a href='https://docs.djangoproject.com/en/5.0/ref/class-based-views/base/'>{{project.title}}</a>
+</h1>
+
+    <p style='align-item:center'> {{project.Description }} </p>
+{% endfor %}
+{% endblock %}

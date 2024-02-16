@@ -1,0 +1,17 @@
+
+
+{% extends 'portfolio/main.html' %}
+{% block title %}My Blogs{% endblock %}
+{% block content %}
+
+<div style='text-align:center;'>
+    <h1> My Blogs </h1>
+
+    {% for blog in blogs %}
+    <h3> {{blog.title}}</h3>
+
+    <p>{{blog.date}}</p>
+    <p>{{blog.description}}
+        {% endfor %}
+</div>
+{% endblock %}
