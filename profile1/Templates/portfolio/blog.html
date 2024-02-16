@@ -1,5 +1,3 @@
-
-
 {% extends 'portfolio/main.html' %}
 {% block title %}My Blogs{% endblock %}
 {% block content %}
@@ -8,10 +6,12 @@
     <h1> My Blogs </h1>
 
     {% for blog in blogs %}
-    <h3> {{blog.title}}</h3>
+        {% with blog_id=blog.id|default:'' %}
+            <a href="{% url 'profile1:BlogDetail' blog_id %}"><h3>{{ blog.title }}</h3></a>
+        {% endwith %}
 
-    <p>{{blog.date}}</p>
-    <p>{{blog.description}}
-        {% endfor %}
+        <p>{{ blog.date }}</p>
+        <p>{{ blog.description }}</p>
+    {% endfor %}
 </div>
 {% endblock %}
