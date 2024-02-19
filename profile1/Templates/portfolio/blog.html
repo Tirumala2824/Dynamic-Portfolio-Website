@@ -7,11 +7,74 @@
 
     {% for blog in blogs %}
         {% with blog_id=blog.id|default:'' %}
-            <a href="{% url 'profile1:BlogDetail' blog_id %}"><h3>{{ blog.title }}</h3></a>
+            <a href="#" class="blog-link" data-blog-id="{{ blog_id }}" data-bs-toggle="modal" data-bs-target="#blogPopupModal">
+                <h3>{{ blog.title }}</h3>
+            </a>
         {% endwith %}
 
-        <p>{{ blog.date }}</p>
-        <p>{{ blog.description }}</p>
+        <p>{{ blog.date|date:'M jS Y' }}</p>
+        <p>{{ blog.description|truncatechars:100 }}</p>
     {% endfor %}
 </div>
+
+<!-- Bootstrap modal code -->
+<div class="modal fade" id="blogPopupModal" tabindex="-1" aria-labelledby="blogPopupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="blogPopupModalLabel">Blog Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="blogPopupContent">
+                <!-- Content of the blog_popup.html will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add click event listener to all blog links
+        var blogLinks = document.querySelectorAll('.blog-link');
+        blogLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var blogId = link.dataset.blogId;
+                loadBlogContent(blogId);
+            });
+        });
+    });
+
+    function loadBlogContent(blogId) {
+        // Use AJAX to load the content of blog_popup.html and update the modal body
+        var blogPopupContent = document.getElementById('blogPopupContent');
+        blogPopupContent.innerHTML = ''; // Clear existing content
+
+        // Fetch the content of the blog_popup.html
+        fetch('{% url "profile1:BlogDetail" 0 %}'.replace('0', blogId))
+            .then(response => response.text())
+            .then(data => {
+                blogPopupContent.innerHTML = data;
+                var blogPopupModal = new bootstrap.Modal(document.getElementById('blogPopupModal'));
+                blogPopupModal.show();
+                
+                // Add hidden input with blog id for redirection
+                var hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'blog_id';
+                hiddenInput.value = blogId;
+                blogPopupContent.appendChild(hiddenInput);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    
+    // Add event listener for modal hidden event
+    var blogPopupModal = document.getElementById('blogPopupModal');
+    blogPopupModal.addEventListener('hidden.bs.modal', function () {
+        // Retrieve blog id from hidden input
+        var blogId = document.querySelector('#blogPopupContent input[name="blog_id"]').value;
+        // Redirect to the blog page with the retrieved blog id
+        window.location.href = '{% url "profile1:BlogDetail" 0 %}'.replace('0', blogId);
+    });
+</script>
 {% endblock %}
