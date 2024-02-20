@@ -31,3 +31,24 @@ class blog(models.Model):
     def __str__(self):
         return self.title
     
+    
+class Experience(models.Model):
+    companyTitle=models.CharField(max_length=100)
+    role=models.CharField(max_length=100)
+    startDate=models.DateField()
+    endDate=models.DateField()
+    projects=models.ForeignKey(project,on_delete=models.CASCADE)
+    jobType=models.CharField(choices={
+        'Internship':'Intern ship',
+        'Full Time':'FUll Time',
+        'Part Time':'Part Time',
+        'Contract':'Contract',
+        'Freelance':'Freelance',
+    },default='Full Time')
+    jobDescription=models.TextField(max_length=1000)
+    
+    def __str__(self):
+        return self.companyTitle + " " + self.role
+    
+    
+    

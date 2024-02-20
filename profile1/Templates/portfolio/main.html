@@ -28,40 +28,48 @@
   </style>
 </head>
 <body>
-  <div class="cantainer ">
-    <nav class="navbar  bg-success p-2" style="--bs-bg-opacity: .5;  fixed-top">
-      <div class="container">
-        
-        {% comment %} <link rel="icon" type="image/x-icon"  href='{% static "images/mylogo.png" %}' > {% endcomment %}
-          <a class="navbar-brand" href="/"><img  rel='icon' type="image/x-icon" src='{% static "images/mylogo.png" %}' style='height:20px;width:20px'/> Durga Prasad</a>
-          
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>.
+  <div class="container-fluid   fixed-top">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 text ">
+      
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <img  rel='icon' type="image/x-icon" src='{% static "images/mylogo.png" %}' style='height:20px;width:20px'/>
+        <span class="fs-4 text-white "> Durga Prasad </span>
+      </a>
 
-          </button>
-      </div>
-  </nav>
-  <div class="container">
-    
-
-        <!-- Main content area -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content animate__animated animate__fadeIn">
-            <!-- Content goes here -->
-        </main>
-    </div>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'profile1:Experience' %}" class="nav-link">Experience</a></li>
+        <li class="nav-item"><a href="{% static 'PdfFiles/Pitani_Durga_prasad.pdf' %}" target='_blank' class="nav-link">Resume</a></li>
+        <li class="nav-item"><a href="{% url 'profile1:blog' %}" class="nav-link">My Blogs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+      </ul>
+    </header>
   </div>
-  
-  <!-- Offcanvas Navbar -->
-  <div class="offcanvas offcanvas-end text-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-    <!-- ... (Rest of your offcanvas navbar code) -->
-  </div class='container '>
   {% block content %}{% endblock %}
-  </div>
+
   
+ 
+  
+  <div class="container bg-dark text-white  ">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4  ">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        <span class="mb-3 mb-md-0 ">&copy; 2024 Durga Prasad</span>
+      </div>
+  
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+      </ul>
+    </footer>
+  </div>
     
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>

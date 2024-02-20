@@ -1,0 +1,11 @@
+{% extends 'portfolio/main.html' %}
+{% block title %}My Experience{% endblock %}
+{% block content %}
+{% for experi in experiences %}
+
+<div class='container '>
+    {{experi.companyTitle}}
+</div>
+
+{% endfor %}
+{% endblock %}
