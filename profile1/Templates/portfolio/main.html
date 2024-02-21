@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'></script>
     <style>
+
       /* Add your custom styles here */
       #sidebar, .main-content {
           opacity: 0;
@@ -25,15 +26,30 @@
               opacity: 1;
           }
       }
+      .hero-header {
+        background-image: url("{% static 'images/background.png' %}");
+        background-size: cover;
+        background-position: center;
+        height: 50px; /* Adjust height as needed */
+      }
+      
+      .header-content {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
   </style>
 </head>
 <body>
-  <div class="container-fluid   fixed-top">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 text ">
+  <div class="container-fluid   fixed-top hero-header">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 text header-content" >
       
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <img  rel='icon' type="image/x-icon" src='{% static "images/mylogo.png" %}' style='height:20px;width:20px'/>
-        <span class="fs-4 text-white "> Durga Prasad </span>
+        <img  rel='icon' type="image/x-icon" src='{% static "images/dp1.png" %}' style='height:30px;width:30px'/>
+        <span class="fs-4 text-warning "> DURGA PRASAD </span>
       </a>
 
       <ul class="nav nav-pills">
@@ -41,7 +57,7 @@
         <li class="nav-item"><a href="{% url 'profile1:Experience' %}" class="nav-link">Experience</a></li>
         <li class="nav-item"><a href="{% static 'PdfFiles/Pitani_Durga_prasad.pdf' %}" target='_blank' class="nav-link">Resume</a></li>
         <li class="nav-item"><a href="{% url 'profile1:blog' %}" class="nav-link">My Blogs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Contact Us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Contact Me</a></li>
       </ul>
     </header>
   </div>
@@ -50,20 +66,16 @@
   
  
   
-  <div class="container bg-dark text-white  ">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4  ">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-        </a>
-        <span class="mb-3 mb-md-0 ">&copy; 2024 Durga Prasad</span>
-      </div>
-  
-      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-        <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+  <div class="container-fluid bg-dark ">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="{% url 'profile1:Experience' %}" class="nav-link">Experience</a></li>
+        <li class="nav-item"><a href="{% static 'PdfFiles/Pitani_Durga_prasad.pdf' %}" target='_blank' class="nav-link">Resume</a></li>
+        <li class="nav-item"><a href="{% url 'profile1:blog' %}" class="nav-link">My Blogs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Contact Me</a></li>
       </ul>
+      <p class="text-center text-white">&copy; 2024 , Durga Prasad</p>
     </footer>
   </div>
     
