@@ -35,9 +35,10 @@ class blog(models.Model):
 class Experience(models.Model):
     companyTitle=models.CharField(max_length=100)
     role=models.CharField(max_length=100)
+    companyImage=models.ImageField(upload_to='images/',null=True)
     startDate=models.DateField()
     endDate=models.DateField()
-    projects=models.ForeignKey(project,on_delete=models.CASCADE)
+    projects=models.ForeignKey(project,on_delete=models.CASCADE,null=True,blank=True)
     jobType=models.CharField(choices={
         'Internship':'Intern ship',
         'Full Time':'FUll Time',
