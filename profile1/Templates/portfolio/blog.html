@@ -1,124 +1,68 @@
 {% extends 'portfolio/main.html' %}
+{% load static %}
 {% block title %}My Blogs{% endblock %}
 {% block content %}
-<div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-    <div class="col-lg-6 px-0">
-      <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-      <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+<div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary" style='margin-top:10vh'>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 px-0">
+            {% for blog in blogs %}
+                {% if blog.title == "Django Website" %}
+                    <h1 class="display-4 fst-italic">{{ blog.title }}</h1>
+                    <p class="lead my-3">{{ blog.description|truncatechars:200 }}</p>
+                    {% comment %} <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p> {% endcomment %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 px-0">
+            <img src='{% static "images/dp.png" %}' class="img-fluid" alt="Profile Image">
+        </div>
     </div>
   </div>
 
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-          <h3 class="mb-0">Featured post</h3>
-          <div class="mb-1 text-body-secondary">Nov 12</div>
-          <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-            Continue reading
-            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-          </a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-          <h3 class="mb-0">Post title</h3>
-          <div class="mb-1 text-body-secondary">Nov 11</div>
-          <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-            Continue reading
-            <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-          </a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div style='text-align:center;'>
-    <h1> My Blogs </h1>
+<div class="container mt-5">
+    <h2>List of Blogs</h2>
 
     {% for blog in blogs %}
-        {% with blog_id=blog.id|default:'' %}
-            <a href="#" class="blog-link" data-blog-id="{{ blog_id }}" data-bs-toggle="modal" data-bs-target="#blogPopupModal">
-                <h3>{{ blog.title }}</h3>
-            </a>
-        {% endwith %}
-
-        <p>{{ blog.date|date:'M jS Y' }}</p>
-        <p>{{ blog.description|truncatechars:100 }}</p>
-    {% endfor %}
-</div>
-
-<!-- Bootstrap modal code -->
-<div class="modal fade" id="blogPopupModal" tabindex="-1" aria-labelledby="blogPopupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="blogPopupModalLabel">Blog Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Display each blog entry -->
+        <div class="card mb-3">
+            <div class="card-body d-flex flex-column">
+                {% with blog_id=blog.id|default:'' %}
+                    <a href="{% url 'profile1:BlogDetail' blog_id %}" class="card-title">
+                        <h3>{{ blog.title }}</h3>
+                    </a>
+                {% endwith %}
+                
+                <!-- Display the blog date on the same line and align it to the end -->
+                <p class="card-text mt-auto text-muted">{{ blog.date|date:'M j, Y' }}</p>
+                
+                <!-- Display the blog description below the title -->
+                <p class="card-text">{{ blog.description|truncatechars:300 }}</p>
+                
+                <!-- Add other details you want to display -->
+                
+                {% comment %} <a href="{% url 'profile1:blog_detail' blog_id %}" class="btn btn-primary">Read More</a> {% endcomment %}
             </div>
-            <div class="modal-body" id="blogPopupContent">
-                <!-- Content of the blog_popup.html will be loaded here -->
-            </div>
+            
         </div>
+    {% endfor %}
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if blogs.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ blogs.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
+            </span>
+
+            {% if blogs.has_next %}
+                <a href="?page={{ blogs.next_page_number }}">next</a>
+                <a href="?page={{ blogs.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Add click event listener to all blog links
-        var blogLinks = document.querySelectorAll('.blog-link');
-        blogLinks.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                var blogId = link.dataset.blogId;
-                loadBlogContent(blogId);
-            });
-        });
-    });
-
-    function loadBlogContent(blogId) {
-        // Use AJAX to load the content of blog_popup.html and update the modal body
-        var blogPopupContent = document.getElementById('blogPopupContent');
-        blogPopupContent.innerHTML = ''; // Clear existing content
-
-        // Fetch the content of the blog_popup.html
-        fetch('{% url "profile1:BlogDetail" 0 %}'.replace('0', blogId))
-            .then(response => response.text())
-            .then(data => {
-                blogPopupContent.innerHTML = data;
-                var blogPopupModal = new bootstrap.Modal(document.getElementById('blogPopupModal'));
-                blogPopupModal.show();
-                
-                // Add hidden input with blog id for redirection
-                var hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.name = 'blog_id';
-                hiddenInput.value = blogId;
-                blogPopupContent.appendChild(hiddenInput);
-            })
-            .catch(error => console.error('Error:', error));
-    }
-    
-    // Add event listener for modal hidden event
-    var blogPopupModal = document.getElementById('blogPopupModal');
-    blogPopupModal.addEventListener('hidden.bs.modal', function () {
-        // Retrieve blog id from hidden input
-        var blogId = document.querySelector('#blogPopupContent input[name="blog_id"]').value;
-        // Redirect to the blog page with the retrieved blog id
-        window.location.href = '{% url "profile1:BlogDetail" 0 %}'.replace('0', blogId);
-    });
-</script>
 {% endblock %}

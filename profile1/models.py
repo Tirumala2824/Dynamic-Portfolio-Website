@@ -25,7 +25,9 @@ class  project(models.Model):
 class blog(models.Model):
     title=models.CharField(max_length=200)
     date=models.DateField()
-    description=models.TextField(max_length=500)
+    description=models.TextField(max_length=1000)
+    category=models.CharField(max_length=50,null=True)
+    thumbnail=models.ImageField(upload_to='images/',null=True)
     
     
     def __str__(self):
@@ -53,3 +55,11 @@ class Experience(models.Model):
     
     
     
+class Contact(models.Model):
+    name=models.CharField(max_length=100)
+    email=models.EmailField()
+    company=models.CharField(max_length=100)
+    message=models.TextField(max_length=300)
+    
+    def __str__(self):
+        return self.title + "       " + self.email

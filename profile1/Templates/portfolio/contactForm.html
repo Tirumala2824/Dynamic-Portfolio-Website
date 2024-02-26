@@ -1,0 +1,15 @@
+{% extends 'portfolio/main.html' %}
+{% block title %}Contact Page {% endblock %}
+{% block content %}
+<section style='margin-top:10vh'>
+    <h1>contact page </h1>
+<form method='post' action='{% url "profile1:contact" %}'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type='submit'>submit</button>
+
+</form>
+
+</section>
+
+{% endblock %}
