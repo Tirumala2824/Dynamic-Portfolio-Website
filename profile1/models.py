@@ -58,7 +58,7 @@ class Experience(models.Model):
 class Contact(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField()
-    company=models.CharField(max_length=100)
+    company=models.CharField(max_length=100,null=True)
     message=models.TextField(max_length=300)
     
     def __str__(self):

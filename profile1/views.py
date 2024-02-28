@@ -1,4 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.core.mail import send_mail
 from .models import project,blog,Experience
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ContactForm
@@ -6,6 +7,7 @@ from .forms import ContactForm
 # Create your views here.
 def project1(request):
     projects=project.objects.all()
+    
     return render(request,'portfolio/index.html',{"projects":projects})
 
 def blog1(request):
@@ -36,13 +38,21 @@ def experience(request):
     return render(request,'portfolio/Experience.html',{'experiences':experiences})
 
 
+
+
 def contact_form(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('success_page')  # Replace 'success_page' with the actual URL name or path
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            company = form.cleaned_data['company']
+            message = form.cleaned_data['message']
+            subject = f'Message from {name}'
+            body = f'Name: {name}\nEmail: {email}\nCompany: {company}\nMessage: {message}'
+            send_mail(subject, body, email, ['ptvdprasad121@gmail.com'])
+            return redirect('/')
     else:
         form = ContactForm()
-
     return render(request, 'portfolio/contactForm.html', {'form': form})
