@@ -16,7 +16,7 @@ These instructions will help you set up and run the project on your local machin
 1. **Clone the repository:**
     ```bash
     git clone https://github.com/Tirumala2824/Dynamic-Portfolio-Website.git
-    cd myportfolio
+    cd Dynamic-Portfolio-Website
     ```
 
 2. **Create a virtual environment:**
@@ -36,13 +36,14 @@ These instructions will help you set up and run the project on your local machin
 
 4. **Install the project dependencies:**
     ```bash
-    pip install django
+    pip install -r requirements.txt
     ```
 
 ### Running the Project
 
 1. **Apply migrations:**
     ```bash
+    python manage.py makemigrations 
     python manage.py migrate
     ```
 
